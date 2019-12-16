@@ -1,0 +1,19 @@
+{
+  "name": "trabalhonodefacef",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Andre-Borges/TrabalhoNodeFacef.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Andre-Borges/TrabalhoNodeFacef/issues"
+  },
+  "homepage": "https://github.com/Andre-Borges/TrabalhoNodeFacef#readme"
+}
