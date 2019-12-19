@@ -1,0 +1,11 @@
+version: '3.3'
+services:
+  db:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: trabalhonodefacef
+      MYSQL_DATABASE: trabalhonodefacef
+      MYSQL_USER: trabalhonodefacef
+      MYSQL_PASSWORD: trabalhonodefacef
+    ports:
+      - '3310:3306'
