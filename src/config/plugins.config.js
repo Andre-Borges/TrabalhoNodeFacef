@@ -8,7 +8,7 @@ export default () => [
         plugin: HapiSequelizeJS,
         options: [
             {
-                name: 'fitafitblog',
+                name: 'trabalhoNodeFacef',
                 models: [
                     'src/api/**/**.models.js'
                 ],

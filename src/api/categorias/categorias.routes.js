@@ -1,15 +1,15 @@
-import * as Controller from './clientes.controllers';
-import * as Schemas from './clientes.schemas';
+import * as Controller from './categorias.controllers';
+import * as Schemas from './categorias.schemas';
 
 export default [
     {
         method: 'GET',
-        path: '/clientes',
-        handler: Controller.list,
+        path: '/categorias',
+        handler: Controller.list
     },
     {
         method: 'GET',
-        path: '/clientes/{id}',
+        path: '/categorias/{id}',
         handler: Controller.detail,
         config: {
             validate: {
@@ -19,16 +19,17 @@ export default [
     },
     {
         method: 'POST',
-        path: '/clientes',
+        path: '/categorias',
         handler: Controller.create,
         config: {
-            auth: false,
-            validate: Schemas.create
+            validate: {
+                payload: Schemas.payload
+            }
         }
     },
     {
         method: 'PUT',
-        path: '/clientes/{id}',
+        path: '/categorias/{id}',
         handler: Controller.update,
         config: {
             validate: Schemas.update
@@ -36,21 +37,12 @@ export default [
     },
     {
         method: 'DELETE',
-        path: '/clientes/{id}',
+        path: '/categorias/{id}',
         handler: Controller.destroy,
         config: {
             validate: {
                 params: Schemas.params
             }
-        }
-    },
-    {
-        method: 'POST',
-        path: '/clientes/login',
-        handler: Controller.login,
-        config: {
-            auth: false,
-            validate: Schemas.login
         }
     }
 ]

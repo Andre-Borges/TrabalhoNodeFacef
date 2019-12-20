@@ -1,4 +1,3 @@
-  
 console.log('src/config/config.server.js');
 
 import Hapi from '@hapi/hapi';

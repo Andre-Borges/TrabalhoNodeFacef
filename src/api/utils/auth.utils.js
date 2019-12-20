@@ -1,4 +1,4 @@
-import Bcrypt from 'bcrypt';
+import Bcrypt from 'bcryptjs';
 import Boom from '@hapi/boom';
 import JWT from 'jsonwebtoken';
 import { getObjectOr404 } from '../../api/utils/database.utils';

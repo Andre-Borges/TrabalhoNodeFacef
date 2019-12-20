@@ -5,11 +5,11 @@ export default class ClientesDAO {
     model = instances.getModel('cliente');
   
     async findAll(where) {
-        return model.findAll({ where });
+        return this.model.findAll({ where });
     }
 
     async findByID(id) {
-        return getObjectOr404(this.model, { where: { id } });
+        return await getObjectOr404(this.model, { where: { id } });
     }
 
     async create(data) {
@@ -23,6 +23,6 @@ export default class ClientesDAO {
 
     async destroy(id) {
         const cliente = await this.findByID(id);
-        return await cliente.destroy(data);
+        return await cliente.destroy(cliente);
     }
 }

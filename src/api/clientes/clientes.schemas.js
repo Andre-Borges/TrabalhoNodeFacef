@@ -12,19 +12,19 @@ export const loginPayload = Joi.object({
 export const payload = Joi.object({
     nome: Joi.string().min(3).required(),
     numeroCpfCnpj: Joi.number().required(), // todo: validar unico no service
+    email: Joi.string().email().required(), // todo: validar unico no service
+    senha: Joi.string().min(6).required()
 });
 
 export const update = {
     params,
-    payload,
-    loginPayload
+    payload
 };
 
 export const create = {
-    payload,
-    loginPayload
+    payload
 };
 
 export const login = {
-    loginPayload
+    payload: loginPayload
 };
