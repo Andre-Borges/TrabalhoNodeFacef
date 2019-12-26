@@ -8,9 +8,9 @@ export default (sequelize, dataTypes) => {
 
   Pedido.init(
     {
-      cliente: dataTypes.STRING,
+      cli_id: dataTypes.INTEGER,
       valor: {
-        type: dataTypes.FLOAT,
+        type: dataTypes.DECIMAL,
       },
       produtos: {
         type: dataTypes.STRING,
@@ -22,8 +22,9 @@ export default (sequelize, dataTypes) => {
   Pedido.associate = models => {
     models.pedido.belongsToMany(models.produto, {
       foreignKey: 'pedido_id',
-      through: 'pedido_produtos',
+      through: 'produtos_pedido',
       as: 'produto',
+      onDelete: 'CASCADE',
     });
   };
 

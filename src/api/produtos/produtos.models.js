@@ -19,8 +19,9 @@ export default (sequelize, dataTypes) => {
     });
     models.produto.belongsToMany(models.produto, {
       foreignKey: 'produto_id',
-      through: 'pedido_produtos',
+      through: 'produtos_pedido',
       as: 'pedido',
+      onDelete: 'CASCADE',
     });
   };
 
