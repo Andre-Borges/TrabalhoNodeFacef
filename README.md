@@ -12,11 +12,7 @@
 
 ## Configuração
 
-
-https://www.docker.com/get-started
-
-1. Caso não tenha, instale o [Docker](https://www.docker.com/get-started)
-  
+1. Caso não tenha, instale o [Docker](https://www.docker.com/get-started)  
    
 2. Instale todas as dependências:
 
