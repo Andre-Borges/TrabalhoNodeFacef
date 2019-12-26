@@ -13,15 +13,23 @@
 ## Configuração
 
 1. Caso não tenha, instale o [Docker](https://www.docker.com/get-started)  
+
+2. Renomeie o arquivo ".env.sample" para ".env":
    
-2. Instale todas as dependências:
+3. Instale todas as dependências:
 
 	```sh
 	$ npm install
 	```
-
-3. Suba o banco de dados com o docker:
+	
+4. Suba o banco de dados com o docker:
 
 	```sh
 	$ docker-compose up
+	```
+	
+5. Rode o projeto:
+
+	```sh
+	$ npm run dev
 	```
