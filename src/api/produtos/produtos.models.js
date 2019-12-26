@@ -17,7 +17,7 @@ export default (sequelize, dataTypes) => {
       as: 'categoria',
       foreignKey: 'categoriaId',
     });
-    models.produto.belongsToMany(models.produto, {
+    models.produto.belongsToMany(models.pedido, {
       foreignKey: 'produto_id',
       through: 'produtos_pedido',
       as: 'pedido',

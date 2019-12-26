@@ -14,7 +14,7 @@
 
 1. Caso não tenha, instale o [Docker](https://www.docker.com/get-started)  
 
-2. Renomeie o arquivo ".env.sample" para ".env":
+2. Renomeie o arquivo ".env.sample" para ".env"
    
 3. Instale todas as dependências:
 
