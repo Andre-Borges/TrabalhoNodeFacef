@@ -5,7 +5,7 @@ export default class PedidosAO {
   model = instances.getModel('pedido');
 
   async findAll(where) {
-    return this.model.findAll({ where: { id }, include: ['cliente'] });
+    return this.model.findAll({ where, include: ['cliente'] });
   }
 
   async findByID(id) {

@@ -8,18 +8,18 @@ export default (sequelize, dataTypes) => {
 
   Pedido.init(
     {
-      cli_id: dataTypes.INTEGER,
       valor: {
         type: dataTypes.DECIMAL,
-      },
-      produtos: {
-        type: dataTypes.STRING,
       },
     },
     { sequelize, modelName: 'pedido' },
   );
 
   Pedido.associate = models => {
+    models.pedido.belongsTo(models.cliente, {
+      as: 'cliente',
+      foreignKey: 'cliente_id',
+    });
     models.pedido.belongsToMany(models.produto, {
       foreignKey: 'pedido_id',
       through: 'produtos_pedido',

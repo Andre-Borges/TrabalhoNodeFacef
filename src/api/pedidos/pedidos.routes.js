@@ -6,16 +6,12 @@ export default [
     method: 'GET',
     path: '/pedidos',
     handler: Controller.list,
-    config: {
-      auth: false,
-    },
   },
   {
     method: 'GET',
     path: '/pedidos/{id}',
     handler: Controller.detail,
     config: {
-      auth: false,
       validate: {
         params: Schemas.params,
       },
