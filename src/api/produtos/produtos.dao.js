@@ -3,7 +3,7 @@ import { getObjectOr404 } from '../utils/database.utils';
 
 export default class ProdutosDAO {
     model = instances.getModel('produto');
-  
+
     async findAll(where) {
         return this.model.findAll({ where, include: [ 'categoria' ] });
     }
@@ -13,16 +13,18 @@ export default class ProdutosDAO {
     }
 
     async create(data) {
-        return await this.model.create(data);
+        // todo - Validar se a categoria existe antes de criar o produto
+
+        return this.model.create(data);
     }
 
     async update(id, data) {
         const produto = await this.findByID(id);
-        return await produto.update(data);
+        return produto.update(data);
     }
 
     async destroy(id) {
         const produto = await this.findByID(id);
-        return await produto.destroy(produto);
+        return produto.destroy(produto);
     }
 }

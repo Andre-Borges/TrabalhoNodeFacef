@@ -1,31 +1,31 @@
-import ProdutosDao from './produtos.dao';
+import ProdutosBusiness from './produtos.business';
 import { CREATED, NO_CONTENT } from 'http-status';
 
-const produtosDao = new ProdutosDao();
+const produtosBusiness = new ProdutosBusiness();
 
-export async function list (request, h) {
-    const { params } = request;
-    return await produtosDao.findAll(params);
-};
+export default class ProdutosController {
+    async list (request, h) {
+        return await produtosBusiness.list(request);
+    }
 
-export async function detail (request, h) { //Rever
-    const { id } = request.params; 
-    return await produtosDao.findByID(id) || {};
-};
+    async detail (request, h) {
+        return await produtosBusiness.detail(request);
+    }
 
-export async function create (request, h) {
-    const { payload } = request;
-    const produto = await produtosDao.create(payload);
-    return h.response(produto).code(CREATED);
-};
+    async create (request, h) {
+        const produto = await produtosBusiness.create(request);
 
-export async function update (request, h) {
-    const { payload, params: { id } } = request;
-    return await produtosDao.update(id, payload);
-};
+        return h.response(produto).code(CREATED);
+    }
 
-export async function destroy (request, h) {
-    const { id } = request.params;
-    await produtosDao.destroy(id);
-    return h.response().code(NO_CONTENT);
-};
+    async update (request, h) {
+        return await produtosBusiness.update(request);
+    }
+
+    async destroy (request, h) {
+        await produtosBusiness.destroy(request);
+
+        return h.response().code(NO_CONTENT);
+    }
+
+}

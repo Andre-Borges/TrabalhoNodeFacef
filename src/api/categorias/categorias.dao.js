@@ -8,21 +8,21 @@ export default class TagsDao {
         return this.model.findAll({ where });
     }
 
-    async findById(where) {        
+    async findByID(where) {
         return await getObjectOr404(this.model, { where });
     }
 
-    create(categoria) {
+    async create(categoria) {
         return this.model.create(categoria);
     }
 
     async update(where, data) {
-        const categoria = await this.findById(where);
-        return await categoria.update(data);
+        const categoria = await this.findByID(where);
+        return categoria.update(data);
     }
-    
+
     async destroy(where) {
-        const categoria = await this.findById(where);
+        const categoria = await this.findByID(where);
         return await categoria.destroy();
     }
 };

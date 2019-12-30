@@ -1,16 +1,18 @@
-import * as Controller from './categorias.controllers';
+import CategoriasController from './categorias.controllers';
 import * as Schemas from './categorias.schemas';
+
+const controller = new CategoriasController();
 
 export default [
     {
         method: 'GET',
         path: '/categorias',
-        handler: Controller.list
+        handler: controller.list
     },
     {
         method: 'GET',
         path: '/categorias/{id}',
-        handler: Controller.detail,
+        handler: controller.detail,
         config: {
             validate: {
                 params: Schemas.params
@@ -20,7 +22,7 @@ export default [
     {
         method: 'POST',
         path: '/categorias',
-        handler: Controller.create,
+        handler: controller.create,
         config: {
             validate: {
                 payload: Schemas.payload
@@ -30,7 +32,7 @@ export default [
     {
         method: 'PUT',
         path: '/categorias/{id}',
-        handler: Controller.update,
+        handler: controller.update,
         config: {
             validate: Schemas.update
         }
@@ -38,7 +40,7 @@ export default [
     {
         method: 'DELETE',
         path: '/categorias/{id}',
-        handler: Controller.destroy,
+        handler: controller.destroy,
         config: {
             validate: {
                 params: Schemas.params

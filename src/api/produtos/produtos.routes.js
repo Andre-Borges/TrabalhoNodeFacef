@@ -1,11 +1,13 @@
-import * as Controller from './produtos.controllers';
+import ProdutosController from './produtos.controllers';
 import * as Schemas from './produtos.schemas';
+
+const controller = new ProdutosController();
 
 export default [
     {
         method: 'GET',
         path: '/produtos',
-        handler: Controller.list,
+        handler: controller.list,
         config: {
             auth: false
         }
@@ -13,7 +15,7 @@ export default [
     {
         method: 'GET',
         path: '/produtos/{id}',
-        handler: Controller.detail,
+        handler: controller.detail,
         config: {
             auth: false,
             validate: {
@@ -24,7 +26,7 @@ export default [
     {
         method: 'POST',
         path: '/produtos',
-        handler: Controller.create,
+        handler: controller.create,
         config: {
             validate: {
                 payload: Schemas.payload
@@ -34,7 +36,7 @@ export default [
     {
         method: 'PUT',
         path: '/produtos/{id}',
-        handler: Controller.update,
+        handler: controller.update,
         config: {
             validate: Schemas.update
         }
@@ -42,7 +44,7 @@ export default [
     {
         method: 'DELETE',
         path: '/produtos/{id}',
-        handler: Controller.destroy,
+        handler: controller.destroy,
         config: {
             validate: {
                 params: Schemas.params

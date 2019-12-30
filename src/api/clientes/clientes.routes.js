@@ -1,16 +1,18 @@
-import * as Controller from './clientes.controllers';
+import ClientesController from './clientes.controllers';
 import * as Schemas from './clientes.schemas';
+
+const controller = new ClientesController();
 
 export default [
     {
         method: 'GET',
         path: '/clientes',
-        handler: Controller.list,
+        handler: controller.list,
     },
     {
         method: 'GET',
         path: '/clientes/{id}',
-        handler: Controller.detail,
+        handler: controller.detail,
         config: {
             validate: {
                 params: Schemas.params
@@ -20,7 +22,7 @@ export default [
     {
         method: 'POST',
         path: '/clientes',
-        handler: Controller.create,
+        handler: controller.create,
         config: {
             auth: false,
             validate: Schemas.create
@@ -29,7 +31,7 @@ export default [
     {
         method: 'PUT',
         path: '/clientes/{id}',
-        handler: Controller.update,
+        handler: controller.update,
         config: {
             validate: Schemas.update
         }
@@ -37,7 +39,7 @@ export default [
     {
         method: 'DELETE',
         path: '/clientes/{id}',
-        handler: Controller.destroy,
+        handler: controller.destroy,
         config: {
             validate: {
                 params: Schemas.params
@@ -47,7 +49,7 @@ export default [
     {
         method: 'POST',
         path: '/clientes/login',
-        handler: Controller.login,
+        handler: controller.login,
         config: {
             auth: false,
             validate: Schemas.login

@@ -1,31 +1,32 @@
-import CategoriasDao from './categorias.dao';
+import CategoriasBusiness from './categorias.business';
 import { CREATED, NO_CONTENT } from 'http-status';
 
-const categoriasDao = new CategoriasDao();
+const categoriasBusiness = new CategoriasBusiness();
 
-export async function list (request, h) {
-    const { params } = request;
-    return await categoriasDao.findAll(params);
-};
+export default class CategoriasController {
 
-export async function detail (request, h) { //Rever
-    const { params } = request; 
-    return await categoriasDao.findById(params) || {};
-};
+    async list(request, h) {
+        return await categoriasBusiness.list(request);
+    }
 
-export async function create (request, h) {
-    const { payload } = request;
-    const categoria = await categoriasDao.create(payload);
-    return h.response(categoria).code(CREATED);
-};
+    async detail(request, h) {
+        return await categoriasBusiness.detail(request);
+    }
 
-export async function update (request, h) {
-    const { payload, params } = request;
-    return await categoriasDao.update(params, payload);
-};
+    async create(request, h) {
+        const categoria = await categoriasBusiness.create(request);
 
-export async function destroy (request, h) {
-    const { params } = request;
-    await categoriasDao.destroy(params);
-    return h.response().code(NO_CONTENT);
-};
+        return h.response(categoria).code(CREATED);
+    }
+
+    async update(request, h) {
+        return await categoriasBusiness.update(request);
+    }
+
+    async destroy(request, h) {
+        await categoriasBusiness.destroy(request);
+
+        return h.response().code(NO_CONTENT);
+    }
+
+}
