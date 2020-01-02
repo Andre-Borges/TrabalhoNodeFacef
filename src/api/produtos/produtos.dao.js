@@ -1,10 +1,16 @@
 import { instances } from 'hapi-sequelizejs';
 import { getObjectOr404 } from '../utils/database.utils';
+import Sequelize from 'sequelize';
+
+const op = Sequelize.Op;
 
 export default class ProdutosDAO {
     model = instances.getModel('produto');
 
     async findAll(where) {
+        if (where.descricao) {
+            where.descricao = { [op.like]: `%${where.descricao}%`};
+        }
         return this.model.findAll({ where, include: [ 'categoria' ] });
     }
 
@@ -13,9 +19,8 @@ export default class ProdutosDAO {
     }
 
     async create(data) {
-        // todo - Validar se a categoria existe antes de criar o produto
-
-        return this.model.create(data);
+        const { id } = await this.model.create(data);
+        return this.findByID(id);
     }
 
     async update(id, data) {

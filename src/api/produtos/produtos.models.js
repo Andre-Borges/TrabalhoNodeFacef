@@ -9,7 +9,13 @@ export default (sequelize, dataTypes) => {
       quantidade: dataTypes.INTEGER,
       valor: dataTypes.DECIMAL,
     },
-    { sequelize, modelName: 'produto' },
+    {
+      defaultScope: {
+        attributes: { exclude: ['categoriaId'] }
+      },
+      sequelize,
+      modelName: 'produto'
+    }
   );
 
   Produto.associate = models => {
@@ -18,7 +24,7 @@ export default (sequelize, dataTypes) => {
       foreignKey: 'categoriaId',
     });
     models.produto.belongsToMany(models.pedido, {
-      foreignKey: 'produto_id',
+      foreignKey: 'produtoId',
       through: 'produtos_pedido',
       as: 'pedido',
       onDelete: 'CASCADE',

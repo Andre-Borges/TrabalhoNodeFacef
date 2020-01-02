@@ -8,6 +8,10 @@ export default class CategoriasDAO {
         return this.model.findAll({ where });
     }
 
+    async find(where) {
+        return this.model.findOne({ where });
+    }
+
     async findByID(where) {
         return await getObjectOr404(this.model, { where });
     }
