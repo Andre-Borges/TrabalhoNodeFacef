@@ -1,7 +1,4 @@
 import { Model } from 'sequelize';
-import Bcrypt from 'bcryptjs';
-import * as brUtils from '@brazilian-utils/validators';
-import Boom from '@hapi/boom';
 
 export default (sequelize, dataTypes) => {
   class Pedido extends Model {}
@@ -12,7 +9,15 @@ export default (sequelize, dataTypes) => {
         type: dataTypes.DECIMAL,
       },
     },
-    { sequelize, modelName: 'pedido' },
+    {
+      defaultScope: {
+        attributes: {
+          exclude: ['clienteId']
+        }
+      },
+      sequelize,
+      modelName: 'pedido'
+    },
   );
 
   Pedido.associate = models => {
@@ -23,7 +28,7 @@ export default (sequelize, dataTypes) => {
     models.pedido.belongsToMany(models.produto, {
       foreignKey: 'pedidoId',
       through: 'produtos_pedido',
-      as: 'produto',
+      as: 'produtos',
       onDelete: 'CASCADE',
     });
   };
