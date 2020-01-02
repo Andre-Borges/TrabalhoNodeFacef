@@ -1,10 +1,13 @@
 import ProdutosDAO from './produtos.dao';
+import CategoriasDAO from '../categorias/categorias.dao';
+import Boom from '@hapi/boom';
 
 const produtosDAO = new ProdutosDAO();
+const categoriasDAO = new CategoriasDAO();
 
 export default class ProdutosBusiness {
-  async list({ params }) {
-    return produtosDAO.findAll(params);
+  async list({ query }) {
+    return produtosDAO.findAll(query);
   }
 
   async detail({ params }) {
@@ -14,6 +17,13 @@ export default class ProdutosBusiness {
   }
 
   async create({ payload }) {
+    const { categoriaId: id } = payload;
+
+    const hasCategoria = await categoriasDAO.find({ id });
+    if (!hasCategoria) {
+      throw Boom.notAcceptable('Categoria Inexistente!');
+    }
+
     return produtosDAO.create(payload);
   }
 

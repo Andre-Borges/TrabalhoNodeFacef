@@ -18,10 +18,10 @@ export default (sequelize, dataTypes) => {
   Pedido.associate = models => {
     models.pedido.belongsTo(models.cliente, {
       as: 'cliente',
-      foreignKey: 'cliente_id',
+      foreignKey: 'clienteId',
     });
     models.pedido.belongsToMany(models.produto, {
-      foreignKey: 'pedido_id',
+      foreignKey: 'pedidoId',
       through: 'produtos_pedido',
       as: 'produto',
       onDelete: 'CASCADE',

@@ -1,21 +1,19 @@
 import PedidosDao from './pedidos.dao';
+import PedidosBusiness from './pedidos.business';
 import { CREATED, NO_CONTENT } from 'http-status';
 
-const pedidosDao = new PedidosDao();
+const pedidosBusiness = new PedidosBusiness();
 
 export async function list(request, h) {
-  const { params } = request;
-  return await pedidosDao.findAll(params);
+  return await pedidosBusiness.list(request);
 }
 
 export async function detail(request, h) {
-  const { id } = request.params;
-  return (await pedidosDao.findByID(id)) || {};
+  return (await pedidosBusiness.detail(request)) || {};
 }
 
 export async function create(request, h) {
-  const { payload } = request;
-  const pedido = await pedidosDao.create(payload);
+  const pedido = await pedidosBusiness.create(request);
   return h.response(pedido).code(CREATED);
 }
 
@@ -24,11 +22,10 @@ export async function update(request, h) {
     payload,
     params: { id },
   } = request;
-  return await pedidosDao.update(id, payload);
+  return await pedidosBusiness.update(id, payload);
 }
 
 export async function destroy(request, h) {
-  const { id } = request.params;
-  await pedidosDao.destroy(id);
+  await pedidosBusiness.destroy(request);
   return h.response().code(NO_CONTENT);
 }

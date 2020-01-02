@@ -21,11 +21,6 @@ export default [
     method: 'POST',
     path: '/pedidos',
     handler: Controller.create,
-    config: {
-      validate: {
-        payload: Schemas.payload,
-      },
-    },
   },
   {
     method: 'PUT',
