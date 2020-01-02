@@ -1,7 +1,7 @@
 import { instances } from 'hapi-sequelizejs';
 import { getObjectOr404 } from '../utils/database.utils';
 
-export default class PedidosAO {
+export default class PedidosDAO {
   model = instances.getModel('pedido');
 
   async findAll(where) {

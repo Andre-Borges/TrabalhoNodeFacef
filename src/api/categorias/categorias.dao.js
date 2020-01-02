@@ -1,7 +1,7 @@
 import { instances } from 'hapi-sequelizejs';
 import { getObjectOr404 } from '../../api/utils/database.utils';
 
-export default class TagsDao {
+export default class CategoriasDAO {
     model = instances.getModel('categoria');
 
     findAll(where) {
