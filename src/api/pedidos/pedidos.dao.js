@@ -1,9 +1,12 @@
 import { instances } from 'hapi-sequelizejs';
 import { getObjectOr404 } from '../utils/database.utils';
+import ProdutosDAO  from '../produtos/produtos.dao';
+import Boom from '@hapi/boom';
+
+const produtosDAO = new ProdutosDAO();
 
 export default class PedidosDAO {
   model = instances.getModel('pedido');
-  produtos = instances.getModel('produto');
 
   async findAll(where) {
     return this.model.findAll({ where, include: ['cliente'] });
@@ -21,10 +24,6 @@ export default class PedidosDAO {
   }
 
   async create(data) {
-    for (let product of data['produtos']) {
-      let produto = await this.findProductByID(product.id);
-      console.log(produto);
-    }
     return await this.model.create(data);
   }
 
