@@ -27,7 +27,7 @@ export default class PedidosBusiness {
   async create({ payload }) {
     let valorTotalPedido = 0;
 
-    const { clienteId } = payload;
+    const { clienteId, produtos } = payload;
     await validaCliente(clienteId);
 
     for (let product of produtos) {
@@ -51,20 +51,21 @@ export default class PedidosBusiness {
 
   async update({ params, payload }) {
     const { id } = params;
+    const { clienteId, produtos } = payload;
 
-    const { clienteId } = payload;
     await validaCliente(clienteId);
+    if (produtos && produtos.length > 0) {
+      for (let product of produtos) {
+        let produto_info = await produtosDAO.findByID(product.id);
+        if (produto_info.dataValues.quantidade < product.quantidade) {
+          throw Boom.notAcceptable(
+            'Quantidade não disponivel em estoque produto: ' + product.id,
+          );
+        }
 
-    for (let product of produtos) {
-      let produto_info = await produtosDAO.findByID(product.id);
-      if (produto_info.dataValues.quantidade < product.quantidade) {
-        throw Boom.notAcceptable(
-          'Quantidade não disponivel em estoque produto: ' + product.id,
-        );
+        produto_info.dataValues.quantidade -= product.quantidade;
+        await produtosDAO.update(product.id, produto_info.dataValues);
       }
-
-      produto_info.dataValues.quantidade -= product.quantidade;
-      await produtosDAO.update(product.id, produto_info.dataValues);
     }
 
     return pedidosDAO.update(id, payload);
