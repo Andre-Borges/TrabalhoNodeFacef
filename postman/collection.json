@@ -1,0 +1,599 @@
+{
+	"info": {
+		"_postman_id": "b9a98ca2-1109-4846-9858-69bf0162c0a4",
+		"name": "TrabalhoNodeFacef",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Clientes",
+			"item": [
+				{
+					"name": "GetCliente",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}clientes/1",
+							"host": [
+								"{{url}}clientes"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetClientes",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}clientes",
+							"host": [
+								"{{url}}clientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostClientes",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nome\": \"teste email 2\",\n\t\"numeroCpfCnpj\": \"10860241092\",\n\t\"email\": \"teste2@teste.com\",\n\t\"senha\": \"123456\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}clientes",
+							"host": [
+								"{{url}}clientes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PutClientes",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"nome\": \"teste email put\",\n\t\"numeroCpfCnpj\": \"43838601840\",\n\t\"email\": \"teste@teste.com\",\n\t\"senha\": \"123456\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}clientes/2",
+							"host": [
+								"{{url}}clientes"
+							],
+							"path": [
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteClientes",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}clientes/2",
+							"host": [
+								"{{url}}clientes"
+							],
+							"path": [
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categorias",
+			"item": [
+				{
+					"name": "GetCategorias",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}categorias/2",
+							"host": [
+								"{{url}}categorias"
+							],
+							"path": [
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostCategorias",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"descricao\": \"comida\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}categorias",
+							"host": [
+								"{{url}}categorias"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PutCategorias",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"descricao\": \"arroz doce\"\n}"
+						},
+						"url": {
+							"raw": "{{url}}categorias/1",
+							"host": [
+								"{{url}}categorias"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteCategorias",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}categorias/2",
+							"host": [
+								"{{url}}categorias"
+							],
+							"path": [
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Produtos",
+			"item": [
+				{
+					"name": "GetProdutos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}produtos",
+							"host": [
+								"{{url}}produtos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostProdutos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"descricao\": \"Arroz\",\n\t\"quantidade\": 2,\n\t\"valor\": 2.5,\n\t\"categoriaId\": 1\n}"
+						},
+						"url": {
+							"raw": "{{url}}produtos",
+							"host": [
+								"{{url}}produtos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PutProdutos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"descricao\": \"Arrozz\",\n\t\"quantidade\": 2,\n\t\"valor\": 2.75,\n\t\"categoriaId\": 1\n}"
+						},
+						"url": {
+							"raw": "{{url}}produtos/3",
+							"host": [
+								"{{url}}produtos"
+							],
+							"path": [
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteProdutos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}produtos/3",
+							"host": [
+								"{{url}}produtos"
+							],
+							"path": [
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pedidos",
+			"item": [
+				{
+					"name": "GetPedidos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}pedidos/2",
+							"host": [
+								"{{url}}pedidos"
+							],
+							"path": [
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PostPedidos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"clienteId\": 1,\n\t\"produtos\": [\n\t\t{\n\t\t\t\"id\": 1,\n\t\t\t\"quantidade\": 1\n\t\t},\n\t\t{\n\t\t\t\"id\": 2,\n\t\t\t\"quantidade\": 1\n\t\t},\n\t\t{\n\t\t\t\"id\": 5,\n\t\t\t\"quantidade\": 3\n\t\t}\n\t]\n}"
+						},
+						"url": {
+							"raw": "{{url}}pedidos",
+							"host": [
+								"{{url}}pedidos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PutPedidos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"clienteId\": 1,\n\t\"valor\": 15\n}"
+						},
+						"url": {
+							"raw": "{{url}}pedidos/26",
+							"host": [
+								"{{url}}pedidos"
+							],
+							"path": [
+								"26"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "DeletePedido",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url}}pedidos/1",
+							"host": [
+								"{{url}}pedidos"
+							],
+							"path": [
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "bcf31a35-bae1-465b-96a7-b587fc70ad8a",
+						"exec": [
+							"const result = !responseBody ? null : JSON.parse(responseBody);",
+							"pm.environment.set(\"token\",  result.token);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\": \"teste@teste.com\",\n\t\"senha\": \"123456\"\n}"
+				},
+				"url": {
+					"raw": "{{url}}clientes/login",
+					"host": [
+						"{{url}}clientes"
+					],
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

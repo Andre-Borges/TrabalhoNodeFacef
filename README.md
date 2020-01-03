@@ -12,24 +12,28 @@
 
 ## Configuração
 
-1. Caso não tenha, instale o [Docker](https://www.docker.com/get-started)  
+1. Caso não tenha, instale o [Docker](https://www.docker.com/get-started)
 
 2. Renomeie o arquivo ".env.example" para ".env"
-   
+
 3. Instale todas as dependências:
 
 	```sh
 	$ npm install
 	```
-	
+
 4. Suba o banco de dados com o docker:
 
 	```sh
 	$ docker-compose up
 	```
-	
+
 5. Rode o projeto:
 
 	```sh
 	$ npm run dev
 	```
+
+## Documentação
+
+A documentação está localizada na pasta `postman`, onde o arquivo `collection.json` estão todas as rotas e no arquivo `environment.json` estão as váriaveis de ambiente.

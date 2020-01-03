@@ -1,0 +1,19 @@
+{
+	"id": "f1f35e93-f2fb-4baf-9a54-20d732da7702",
+	"name": "TrabalhoNodeFacef",
+	"values": [
+		{
+			"key": "url",
+			"value": "http://localhost:3000/",
+			"enabled": true
+		},
+		{
+			"key": "token",
+			"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJ0ZXN0ZTJAdGVzdGUuY29tIiwiaWF0IjoxNTc3OTg1MzgwLCJleHAiOjE1NzgwNzE3ODB9.1Gjgp2Y95DqXrujfz30L9HjFzjxLATuzwPTGYV0vpSs",
+			"enabled": true
+		}
+	],
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2020-01-03T03:18:55.953Z",
+	"_postman_exported_using": "Postman/7.5.0"
+}
