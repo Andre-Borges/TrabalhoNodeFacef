@@ -1,6 +1,7 @@
 var Sequelize = require("sequelize");
 var sequelize = new Sequelize('trabalhonodefacef', 'trabalhonodefacef', 'trabalhonodefacef', { dialect: 'sqlite', storage: './ecommerce.sqlite' });
 
+var cpfGenerator = require("@brazilian-utils/generate-cpf");
 var should = require("should");
 var request = require("request");
 var chai = require("chai");
@@ -8,26 +9,25 @@ var expect = chai.expect;
 var urlBase = "http://localhost:3000/";
 var lastId;
 
-return false;
+// Teste do GET clientes
+describe("# GET clientes", () => {
 
-// Teste do GET categorias
-describe("# GET categorias", () => {
     beforeEach((done) => {
-        sequelize.query("SELECT id FROM categoria ORDER BY id DESC LIMIT 1", { 
+        sequelize.query("SELECT id FROM clientes ORDER BY id DESC LIMIT 1", { 
             raw: true,
             plain: true,
             type: sequelize.QueryTypes.SELECT 
-        }).then(categoria => {
-            lastId = categoria.id;
+        }).then(cliente => {
+            lastId = cliente.id;
         });
 
         done();
     });
 
-    it("Deve retornar a lista de categorias", (done) => {
+    it("Deve retornar a lista de clientes", (done) => {
         request.get(
             {
-                url: urlBase + "categorias",
+                url: urlBase + "clientes",
                 headers: {
                     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJldUBpYWdvLmNvbSIsImlhdCI6MTU3ODAwODgzNSwiZXhwIjoxNTc4MDk1MjM1fQ.tGY-s9CT5jFf-rOy0dH2V7mhSyyJzmILUtCZCYCIS6g"
                 }
@@ -49,10 +49,10 @@ describe("# GET categorias", () => {
         )
     });
 
-    it("Deve retornar apenas 1 categoria", (done) => {
+    it("Deve retornar apenas 1 cliente", (done) => {
         request.get(
             {
-                url: urlBase + "categorias/2",
+                url: urlBase + "clientes/1",
                 headers: {
                     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJldUBpYWdvLmNvbSIsImlhdCI6MTU3ODAwODgzNSwiZXhwIjoxNTc4MDk1MjM1fQ.tGY-s9CT5jFf-rOy0dH2V7mhSyyJzmILUtCZCYCIS6g"
                 }
@@ -77,7 +77,7 @@ describe("# GET categorias", () => {
     it("Deve retornar 404", (done) => {
         request.get(
             {
-                url: urlBase + "categorias/99999",
+                url: urlBase + "clientes/99999",
                 headers: {
                     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJldUBpYWdvLmNvbSIsImlhdCI6MTU3ODAwODgzNSwiZXhwIjoxNTc4MDk1MjM1fQ.tGY-s9CT5jFf-rOy0dH2V7mhSyyJzmILUtCZCYCIS6g"
                 }
@@ -98,15 +98,20 @@ describe("# GET categorias", () => {
     });
 });
 
-// POST Categorias
-describe("# POST categorias", () => {
-    it("Deve inserir uma categoria", (done) => {
+// POST clientes
+describe("# POST clientes", () => {
+    it("Deve inserir um cliente", (done) => {
         request.post(
             {
-                url: urlBase + "categorias",
+                url: urlBase + "clientes",
                 headers: {
                     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJldUBpYWdvLmNvbSIsImlhdCI6MTU3ODAwODgzNSwiZXhwIjoxNTc4MDk1MjM1fQ.tGY-s9CT5jFf-rOy0dH2V7mhSyyJzmILUtCZCYCIS6g"                },
-                json: { "descricao": "Categoria de Teste" }
+                json: { 
+                    "nome": "Cliente de Teste",
+                    "numeroCpfCnpj": cpfGenerator(),
+                    "email": "oi" + Math.random + "@oi.com",
+                    "senha": "123456"
+                }
             },
             (error, response, body) => {
                 let _body = {};
@@ -128,7 +133,7 @@ describe("# POST categorias", () => {
     it("Deve retornar 400 (corpo vazio)", (done) => {
         request.post(
             {
-                url: urlBase + "categorias",
+                url: urlBase + "clientes",
                 headers: {
                     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJldUBpYWdvLmNvbSIsImlhdCI6MTU3ODAwODgzNSwiZXhwIjoxNTc4MDk1MjM1fQ.tGY-s9CT5jFf-rOy0dH2V7mhSyyJzmILUtCZCYCIS6g"
                 },
@@ -149,14 +154,19 @@ describe("# POST categorias", () => {
         )
     });
 
-    it("Deve retornar 400 (descicao vazia)", (done) => {
+    it("Deve retornar 400 (nome vazio)", (done) => {
         request.post(
             {
-                url: urlBase + "categorias",
+                url: urlBase + "clientes",
                 headers: {
                     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJldUBpYWdvLmNvbSIsImlhdCI6MTU3ODAwODgzNSwiZXhwIjoxNTc4MDk1MjM1fQ.tGY-s9CT5jFf-rOy0dH2V7mhSyyJzmILUtCZCYCIS6g"
                 },
-                json: { "descricao": "" }
+                json: { 
+                    "nome": "",
+                    "numeroCpfCnpj": cpfGenerator(),
+                    "email": "oi" + Math.random + "@oi.com",
+                    "senha": "123456"
+                }
             },
             (error, response, body) => {
                 let _body = {};
@@ -174,15 +184,20 @@ describe("# POST categorias", () => {
     });
 });
 
-// PUT Categorias
-describe("# PUT categorias", () => {
-    it("Deve atualizar uma categoria", (done) => {
+// PUT clientes
+describe("# PUT clientes", () => {
+    it("Deve atualizar um cliente", (done) => {
         request.put(
             {
-                url: urlBase + "categorias/" + lastId,
+                url: urlBase + "clientes/" + lastId,
                 headers: {
                     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJldUBpYWdvLmNvbSIsImlhdCI6MTU3ODAwODgzNSwiZXhwIjoxNTc4MDk1MjM1fQ.tGY-s9CT5jFf-rOy0dH2V7mhSyyJzmILUtCZCYCIS6g"                },
-                json: { "descricao": "Categoria de Teste 1" }
+                json: { 
+                    "nome": "Cliente de Teste",
+                    "numeroCpfCnpj": cpfGenerator(),
+                    "email": "oi" + Math.random + "@oi.com",
+                    "senha": "123456"
+                }
             },
             (error, response, body) => {
                 let _body = {};
@@ -204,7 +219,7 @@ describe("# PUT categorias", () => {
     it("Deve retornar 400 (corpo vazio)", (done) => {
         request.put(
             {
-                url: urlBase + "categorias/" + lastId,
+                url: urlBase + "clientes/" + lastId,
                 headers: {
                     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJldUBpYWdvLmNvbSIsImlhdCI6MTU3ODAwODgzNSwiZXhwIjoxNTc4MDk1MjM1fQ.tGY-s9CT5jFf-rOy0dH2V7mhSyyJzmILUtCZCYCIS6g"
                 },
@@ -225,14 +240,19 @@ describe("# PUT categorias", () => {
         )
     });
 
-    it("Deve retornar 400 (descicao vazia)", (done) => {
+    it("Deve retornar 400 (CPF vazio)", (done) => {
         request.put(
             {
-                url: urlBase + "categorias/" + lastId,
+                url: urlBase + "clientes/" + lastId,
                 headers: {
                     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJldUBpYWdvLmNvbSIsImlhdCI6MTU3ODAwODgzNSwiZXhwIjoxNTc4MDk1MjM1fQ.tGY-s9CT5jFf-rOy0dH2V7mhSyyJzmILUtCZCYCIS6g"
                 },
-                json: { "descricao": "" }
+                json: { 
+                    "nome": "Categoria de Teste",
+                    "numeroCpfCnpj": "",
+                    "email": "teste" + Math.random + "@teste.com",
+                    "senha": "123456"
+                }
             },
             (error, response, body) => {
                 let _body = {};
@@ -252,11 +272,16 @@ describe("# PUT categorias", () => {
     it("Deve retornar 404", (done) => {
         request.put(
             {
-                url: urlBase + "categorias/9999",
+                url: urlBase + "clientes/9999",
                 headers: {
                     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJldUBpYWdvLmNvbSIsImlhdCI6MTU3ODAwODgzNSwiZXhwIjoxNTc4MDk1MjM1fQ.tGY-s9CT5jFf-rOy0dH2V7mhSyyJzmILUtCZCYCIS6g"
                 },
-                json: { "descricao": "Novo Nome da Categoria" }
+                json: { 
+                    "nome": "Cliente totalmente novo",
+                    "numeroCpfCnpj": cpfGenerator(),
+                    "email": "teste" + Math.random + "@teste.com",
+                    "senha": "123456"
+                }
             },
             (error, response, body) => {
                 let _body = {};
@@ -274,12 +299,12 @@ describe("# PUT categorias", () => {
     });
 });
 
-// DELETE Categorias
-describe("# DELETE categorias", () => {
-    it("Deve deletar uma categoria", (done) => {
+// DELETE clientes
+describe("# DELETE clientes", () => {
+    it("Deve deletar um cliente", (done) => {
         request.delete(
             {
-                url: urlBase + "categorias/" + lastId,
+                url: urlBase + "clientes/" + lastId,
                 headers: {
                     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJldUBpYWdvLmNvbSIsImlhdCI6MTU3ODAwODgzNSwiZXhwIjoxNTc4MDk1MjM1fQ.tGY-s9CT5jFf-rOy0dH2V7mhSyyJzmILUtCZCYCIS6g"                },
             },
@@ -303,7 +328,7 @@ describe("# DELETE categorias", () => {
     it("Deve retornar 404", (done) => {
         request.delete(
             {
-                url: urlBase + "categorias/9999",
+                url: urlBase + "clientes/9999",
                 headers: {
                     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJldUBpYWdvLmNvbSIsImlhdCI6MTU3ODAwODgzNSwiZXhwIjoxNTc4MDk1MjM1fQ.tGY-s9CT5jFf-rOy0dH2V7mhSyyJzmILUtCZCYCIS6g"
                 },
