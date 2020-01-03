@@ -13,7 +13,7 @@ export default class PedidosDAO {
         {
           model: this.produtoModel,
           as: 'produtos',
-          through: { attributes: [] },
+          through: { attributes: ['quantidade'] },
         },
       ],
     });
@@ -27,7 +27,7 @@ export default class PedidosDAO {
         {
           model: this.produtoModel,
           as: 'produtos',
-          through: { attributes: [] },
+          through: { attributes: ['quantidade'] },
         },
       ],
     });
