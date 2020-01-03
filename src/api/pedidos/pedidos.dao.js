@@ -13,9 +13,9 @@ export default class PedidosDAO {
         {
           model: this.produtoModel,
           as: 'produtos',
-          through: { attributes: [] }
-        }
-      ]
+          through: { attributes: [] },
+        },
+      ],
     });
   }
 
@@ -27,9 +27,9 @@ export default class PedidosDAO {
         {
           model: this.produtoModel,
           as: 'produtos',
-          through: { attributes: [] }
-        }
-      ]
+          through: { attributes: [] },
+        },
+      ],
     });
   }
 
@@ -39,8 +39,8 @@ export default class PedidosDAO {
 
     if (produtos && produtos.length > 0) {
       for (const produto of produtos) {
-        const { id } = produto;
-        await pedido.addProdutos(id);
+        const { id, quantidade } = produto;
+        await pedido.addProdutos(id, { through: { quantidade: quantidade } });
       }
     }
 

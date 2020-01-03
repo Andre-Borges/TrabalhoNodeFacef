@@ -11,11 +11,11 @@ export default (sequelize, dataTypes) => {
     },
     {
       defaultScope: {
-        attributes: { exclude: ['categoriaId'] }
+        attributes: { exclude: ['categoriaId'] },
       },
       sequelize,
-      modelName: 'produto'
-    }
+      modelName: 'produto',
+    },
   );
 
   Produto.associate = models => {
@@ -25,7 +25,7 @@ export default (sequelize, dataTypes) => {
     });
     models.produto.belongsToMany(models.pedido, {
       foreignKey: 'produtoId',
-      through: 'produtos_pedido',
+      through: models.produtos_pedido,
       as: 'pedido',
       onDelete: 'CASCADE',
     });
