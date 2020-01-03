@@ -26,9 +26,6 @@ export default [
     method: 'PUT',
     path: '/pedidos/{id}',
     handler: Controller.update,
-    config: {
-      validate: Schemas.update,
-    },
   },
   {
     method: 'DELETE',

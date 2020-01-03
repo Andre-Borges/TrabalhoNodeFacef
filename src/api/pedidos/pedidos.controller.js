@@ -18,11 +18,7 @@ export async function create(request, h) {
 }
 
 export async function update(request, h) {
-  const {
-    payload,
-    params: { id },
-  } = request;
-  return await pedidosBusiness.update(id, payload);
+  return await pedidosBusiness.update(request);
 }
 
 export async function destroy(request, h) {
