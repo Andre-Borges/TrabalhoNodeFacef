@@ -44,8 +44,6 @@ export default class PedidosBusiness {
   async update({ params, payload }) {
     const { id } = params;
 
-    let valorTotalPedido = 0;
-
     await clientesDAO.findByID(payload['clienteId']);
     for (let product of payload['produtos']) {
       let produto_info = await produtosDAO.findByID(product.id);
@@ -57,12 +55,7 @@ export default class PedidosBusiness {
 
       produto_info.dataValues.quantidade -= product.quantidade;
       await produtosDAO.update(product.id, produto_info.dataValues);
-
-      valorTotalPedido =
-        parseFloat(valorTotalPedido) + parseFloat(produto_info.valor);
     }
-
-    payload.valor = valorTotalPedido;
 
     return pedidosDAO.update(id, payload);
   }
