@@ -6,6 +6,12 @@ import Boom from '@hapi/boom';
 const pedidosDAO = new PedidosDAO();
 const produtosDAO = new ProdutosDAO();
 const clientesDAO = new ClientesDAO();
+async function validaCliente(id) {
+  const hasCliente = await clientesDAO.find(id);
+  if (!hasCliente) {
+    throw Boom.notAcceptable('Cliente não cadastrado!');
+  }
+}
 
 export default class PedidosBusiness {
   async list({ query }) {
@@ -21,8 +27,10 @@ export default class PedidosBusiness {
   async create({ payload }) {
     let valorTotalPedido = 0;
 
-    await clientesDAO.findByID(payload['clienteId']);
-    for (let product of payload['produtos']) {
+    const { clienteId } = payload;
+    await validaCliente(clienteId);
+
+    for (let product of produtos) {
       let produto_info = await produtosDAO.findByID(product.id);
       if (produto_info.dataValues.quantidade < product.quantidade) {
         throw Boom.notAcceptable(
@@ -44,8 +52,10 @@ export default class PedidosBusiness {
   async update({ params, payload }) {
     const { id } = params;
 
-    await clientesDAO.findByID(payload['clienteId']);
-    for (let product of payload['produtos']) {
+    const { clienteId } = payload;
+    await validaCliente(clienteId);
+
+    for (let product of produtos) {
       let produto_info = await produtosDAO.findByID(product.id);
       if (produto_info.dataValues.quantidade < product.quantidade) {
         throw Boom.notAcceptable(
