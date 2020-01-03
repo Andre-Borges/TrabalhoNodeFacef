@@ -26,6 +26,10 @@ export default class PedidosBusiness {
           'Quantidade não disponivel em estoque produto: ' + product.id,
         );
       }
+        
+      produto_info.dataValues.quantidade -= product.quantidade;
+      await produtosDAO.update(product.id, produto_info.dataValues);
+
       valorTotalPedido =
         parseFloat(valorTotalPedido) + parseFloat(produto_info.valor);
     }
