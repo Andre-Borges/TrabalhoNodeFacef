@@ -8,24 +8,25 @@ var expect = chai.expect;
 var urlBase = "http://localhost:3000/";
 var lastId;
 
-// Teste do GET categorias
-describe("# GET categorias", () => {
+// Teste do GET produtos
+describe("# GET produtos", () => {
+
     beforeEach((done) => {
-        sequelize.query("SELECT id FROM categoria ORDER BY id DESC LIMIT 1", { 
+        sequelize.query("SELECT id FROM produtos ORDER BY id DESC LIMIT 1", { 
             raw: true,
             plain: true,
             type: sequelize.QueryTypes.SELECT 
-        }).then(categoria => {
-            lastId = categoria.id;
+        }).then(produto => {
+            lastId = produto.id;
         });
 
         done();
     });
 
-    it("Deve retornar a lista de categorias", (done) => {
+    it("Deve retornar a lista de produtos", (done) => {
         request.get(
             {
-                url: urlBase + "categorias",
+                url: urlBase + "produtos",
                 headers: {
                     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJldUBpYWdvLmNvbSIsImlhdCI6MTU3ODAwODgzNSwiZXhwIjoxNTc4MDk1MjM1fQ.tGY-s9CT5jFf-rOy0dH2V7mhSyyJzmILUtCZCYCIS6g"
                 }
@@ -47,10 +48,10 @@ describe("# GET categorias", () => {
         )
     });
 
-    it("Deve retornar apenas 1 categoria", (done) => {
+    it("Deve retornar apenas 1 produto", (done) => {
         request.get(
             {
-                url: urlBase + "categorias/2",
+                url: urlBase + "produtos/1",
                 headers: {
                     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJldUBpYWdvLmNvbSIsImlhdCI6MTU3ODAwODgzNSwiZXhwIjoxNTc4MDk1MjM1fQ.tGY-s9CT5jFf-rOy0dH2V7mhSyyJzmILUtCZCYCIS6g"
                 }
@@ -75,7 +76,7 @@ describe("# GET categorias", () => {
     it("Deve retornar 404", (done) => {
         request.get(
             {
-                url: urlBase + "categorias/99999",
+                url: urlBase + "produtos/99999",
                 headers: {
                     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJldUBpYWdvLmNvbSIsImlhdCI6MTU3ODAwODgzNSwiZXhwIjoxNTc4MDk1MjM1fQ.tGY-s9CT5jFf-rOy0dH2V7mhSyyJzmILUtCZCYCIS6g"
                 }
@@ -96,15 +97,20 @@ describe("# GET categorias", () => {
     });
 });
 
-// POST Categorias
-describe("# POST categorias", () => {
-    it("Deve inserir uma categoria", (done) => {
+// POST produtos
+describe("# POST produtos", () => {
+    it("Deve inserir um produto", (done) => {
         request.post(
             {
-                url: urlBase + "categorias",
+                url: urlBase + "produtos",
                 headers: {
                     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJldUBpYWdvLmNvbSIsImlhdCI6MTU3ODAwODgzNSwiZXhwIjoxNTc4MDk1MjM1fQ.tGY-s9CT5jFf-rOy0dH2V7mhSyyJzmILUtCZCYCIS6g"                },
-                json: { "descricao": "Categoria de Teste" }
+                json: { 
+                    "descricao": "Produto de Teste",
+                    "quantidade": 1,
+                    "valor": 10,
+                    "categoriaId": 1
+                }
             },
             (error, response, body) => {
                 let _body = {};
@@ -126,7 +132,7 @@ describe("# POST categorias", () => {
     it("Deve retornar 400 (corpo vazio)", (done) => {
         request.post(
             {
-                url: urlBase + "categorias",
+                url: urlBase + "produtos",
                 headers: {
                     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJldUBpYWdvLmNvbSIsImlhdCI6MTU3ODAwODgzNSwiZXhwIjoxNTc4MDk1MjM1fQ.tGY-s9CT5jFf-rOy0dH2V7mhSyyJzmILUtCZCYCIS6g"
                 },
@@ -147,14 +153,19 @@ describe("# POST categorias", () => {
         )
     });
 
-    it("Deve retornar 400 (descicao vazia)", (done) => {
+    it("Deve retornar 400 (nome vazio)", (done) => {
         request.post(
             {
-                url: urlBase + "categorias",
+                url: urlBase + "produtos",
                 headers: {
                     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJldUBpYWdvLmNvbSIsImlhdCI6MTU3ODAwODgzNSwiZXhwIjoxNTc4MDk1MjM1fQ.tGY-s9CT5jFf-rOy0dH2V7mhSyyJzmILUtCZCYCIS6g"
                 },
-                json: { "descricao": "" }
+                json: { 
+                    "descricao": "",
+                    "quantidade": 1,
+                    "valor": 10,
+                    "categoriaId": 1
+                }
             },
             (error, response, body) => {
                 let _body = {};
@@ -172,15 +183,22 @@ describe("# POST categorias", () => {
     });
 });
 
-// PUT Categorias
-describe("# PUT categorias", () => {
-    it("Deve atualizar uma categoria", (done) => {
+// PUT produtos
+describe("# PUT produtos", () => {
+    it("Deve atualizar um cliente", (done) => {
         request.put(
             {
-                url: urlBase + "categorias/" + lastId,
+                url: urlBase + "produtos/" + lastId,
                 headers: {
                     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJldUBpYWdvLmNvbSIsImlhdCI6MTU3ODAwODgzNSwiZXhwIjoxNTc4MDk1MjM1fQ.tGY-s9CT5jFf-rOy0dH2V7mhSyyJzmILUtCZCYCIS6g"                },
-                json: { "descricao": "Categoria de Teste 1" }
+                json: { 
+                    json: { 
+                        "descricao": "Produto de Teste att",
+                        "quantidade": 1,
+                        "valor": 10,
+                        "categoriaId": 1
+                    }
+                }
             },
             (error, response, body) => {
                 let _body = {};
@@ -202,7 +220,7 @@ describe("# PUT categorias", () => {
     it("Deve retornar 400 (corpo vazio)", (done) => {
         request.put(
             {
-                url: urlBase + "categorias/" + lastId,
+                url: urlBase + "produtos/" + lastId,
                 headers: {
                     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJldUBpYWdvLmNvbSIsImlhdCI6MTU3ODAwODgzNSwiZXhwIjoxNTc4MDk1MjM1fQ.tGY-s9CT5jFf-rOy0dH2V7mhSyyJzmILUtCZCYCIS6g"
                 },
@@ -223,14 +241,21 @@ describe("# PUT categorias", () => {
         )
     });
 
-    it("Deve retornar 400 (descicao vazia)", (done) => {
+    it("Deve retornar 400 (CPF vazio)", (done) => {
         request.put(
             {
-                url: urlBase + "categorias/" + lastId,
+                url: urlBase + "produtos/" + lastId,
                 headers: {
                     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJldUBpYWdvLmNvbSIsImlhdCI6MTU3ODAwODgzNSwiZXhwIjoxNTc4MDk1MjM1fQ.tGY-s9CT5jFf-rOy0dH2V7mhSyyJzmILUtCZCYCIS6g"
                 },
-                json: { "descricao": "" }
+                json: { 
+                    json: { 
+                        "descricao": "Produto de Teste",
+                        "quantidade": "",
+                        "valor": 10,
+                        "categoriaId": 1
+                    }
+                }
             },
             (error, response, body) => {
                 let _body = {};
@@ -250,11 +275,16 @@ describe("# PUT categorias", () => {
     it("Deve retornar 404", (done) => {
         request.put(
             {
-                url: urlBase + "categorias/9999",
+                url: urlBase + "produtos/9999",
                 headers: {
                     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJldUBpYWdvLmNvbSIsImlhdCI6MTU3ODAwODgzNSwiZXhwIjoxNTc4MDk1MjM1fQ.tGY-s9CT5jFf-rOy0dH2V7mhSyyJzmILUtCZCYCIS6g"
                 },
-                json: { "descricao": "Novo Nome da Categoria" }
+                json: { 
+                    "descricao": "Produto de Teste new",
+                    "quantidade": 1,
+                    "valor": 10,
+                    "categoriaId": 1
+                }
             },
             (error, response, body) => {
                 let _body = {};
@@ -272,12 +302,12 @@ describe("# PUT categorias", () => {
     });
 });
 
-// DELETE Categorias
-describe("# DELETE categorias", () => {
-    it("Deve deletar uma categoria", (done) => {
+// DELETE produtos
+describe("# DELETE produtos", () => {
+    it("Deve deletar um cliente", (done) => {
         request.delete(
             {
-                url: urlBase + "categorias/" + lastId,
+                url: urlBase + "produtos/" + lastId,
                 headers: {
                     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJldUBpYWdvLmNvbSIsImlhdCI6MTU3ODAwODgzNSwiZXhwIjoxNTc4MDk1MjM1fQ.tGY-s9CT5jFf-rOy0dH2V7mhSyyJzmILUtCZCYCIS6g"                },
             },
@@ -301,7 +331,7 @@ describe("# DELETE categorias", () => {
     it("Deve retornar 404", (done) => {
         request.delete(
             {
-                url: urlBase + "categorias/9999",
+                url: urlBase + "produtos/9999",
                 headers: {
                     "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiZW1haWwiOiJldUBpYWdvLmNvbSIsImlhdCI6MTU3ODAwODgzNSwiZXhwIjoxNTc4MDk1MjM1fQ.tGY-s9CT5jFf-rOy0dH2V7mhSyyJzmILUtCZCYCIS6g"
                 },
