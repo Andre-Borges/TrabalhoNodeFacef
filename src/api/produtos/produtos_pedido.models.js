@@ -11,6 +11,7 @@ export default (sequelize, dataTypes) => {
     {
       sequelize,
       modelName: 'produtos_pedido',
+      tableName: 'produtos_pedido'
     },
   );
 

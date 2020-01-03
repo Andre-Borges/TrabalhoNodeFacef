@@ -14,6 +14,7 @@ export default class PedidosDAO {
           model: this.produtoModel,
           as: 'produtos',
           through: { attributes: ['quantidade'] },
+          attributes: ['id', 'descricao', 'valor'],
         },
       ],
     });
@@ -28,6 +29,7 @@ export default class PedidosDAO {
           model: this.produtoModel,
           as: 'produtos',
           through: { attributes: ['quantidade'] },
+          attributes: ['id', 'descricao', 'valor'],
         },
       ],
     });
