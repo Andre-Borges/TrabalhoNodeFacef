@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Andre-Borges/TrabalhoNodeFacef#readme",
   "dependencies": {
+    "@brazilian-utils/generate-cpf": "^0.1.5",
     "@brazilian-utils/validators": "^0.1.9",
     "@hapi/boom": "^8.0.1",
     "@hapi/code": "^7.0.0",
